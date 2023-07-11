@@ -16,57 +16,76 @@ import {
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+type ItemData = {
+  id: number;
+  item: string;
+};
 const Item_page = () => {
   const data = [
     {
       id: 1,
       name: 'Cinnamon & Cocoa',
+      rating: 4.5,
       price: '₹99',
       image: require('./assets/Item1.png'),
     },
     {
       id: 2,
       name: 'Drizzled with Caramel',
+      rating: 4.5,
       price: '₹199',
       image: require('./assets/Item2.png'),
     },
     {
       id: 3,
       name: 'Bursting Blueberry',
+      rating: 4.5,
       price: '₹249',
       image: require('./assets/Item3.png'),
     },
     {
       id: 4,
       name: 'Dalgona Whipped Macha',
+      rating: 4.5,
       price: '₹299',
-      image: require('./assets/Item4.png'),
+      image: require('./assets/Item1.png'),
     },
 
     {
       id: 5,
       name: 'Cinnamon & Cocoa',
+      rating: 4.5,
       price: '₹99',
-      image: require('./assets/Item1.png'),
+      image: require('./assets/Item2.png'),
     },
     {
       id: 6,
       name: 'Drizzled with Caramel',
+      rating: 4.5,
       price: '₹199',
-      image: require('./assets/Item2.png'),
+      image: require('./assets/Item3.png'),
     },
     {
       id: 7,
       name: 'Bursting Blueberry',
+      rating: 4.5,
       price: '₹249',
-      image: require('./assets/Item3.png'),
+      image: require('./assets/Item1.png'),
     },
     {
       id: 8,
       name: 'Dalgona Whipped Macha',
+      rating: 4.5,
       price: '₹299',
-      image: require('./assets/Item4.png'),
+      image: require('./assets/Item2.png'),
     },
+  ];
+  const option_data: ItemData[] = [
+    {id: 1, item: 'Cappuccino'},
+    {id: 2, item: 'Latte'},
+    {id: 3, item: 'Americano'},
+    {id: 4, item: 'Espresso'},
+    {id: 5, item: 'Flat White'},
   ];
   return (
     <SafeAreaView style={Styles.mainheader}>
@@ -89,14 +108,14 @@ const Item_page = () => {
       <View style={Styles.textinputcontainer}>
         <View style={Styles.textinputicon}>
           <Icon
-          style = {Styles.searchicon}
+            style={Styles.searchicon}
             name="search"
             color={'#EFE3C8'}
             size={20}
           />
         </View>
         <View style={Styles.textinput}>
-          <TextInput 
+          <TextInput
             style={Styles.text}
             placeholder="Browse your favourite coffee..."
             placeholderTextColor={'#EFE3C8'}
@@ -106,12 +125,48 @@ const Item_page = () => {
       <View style={Styles.Optioncontainer}>
         <View style={Styles.sideOptionsBar} />
         <View style={Styles.sideOptions}>
-          {/* <Text style={Styles.option}></Text>
-            <Text style={Styles.option}></Text>
-            <Text style={Styles.option}></Text>
-            <Text style={Styles.option}></Text>
-            <Text style={Styles.option}></Text> */}
+          <FlatList
+            data={option_data}
+            renderItem={({item}) => (
+              <View>
+                <TouchableOpacity>
+                  <Text style={Styles.optionText}>{item.item}</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          />
         </View>
+      </View>
+      <View style={Styles.viewCardContainer}>
+        <FlatList
+          data={data}
+          numColumns={2}
+          renderItem={item => (
+            <View style={Styles.mainviewCard}>
+              <View style={Styles.imageviewCard}>
+                <Image style={Styles.imageview} source={item.item.image} />
+              </View>
+
+              <View style={Styles.rateviewCard}>
+                <Text style={Styles.rateview}>{item.item.rating}</Text>
+              </View>
+
+              <View style={Styles.nameviewCard}>
+                <Text style={Styles.nameview} numberOfLines={2}>
+                  {item.item.name}
+                </Text>
+              </View>
+
+              <View style={Styles.priceviewCard}>
+                <Text style={Styles.priceview}>{item.item.price}</Text>
+              </View>
+
+              <View style={Styles.iconviewCard}>
+                <Icon name="plus" size={10} />
+              </View>
+            </View>
+          )}
+        />
       </View>
       <View style={Styles.buttombar}></View>
     </SafeAreaView>
@@ -153,117 +208,84 @@ const Styles = StyleSheet.create({
   },
   textinputcontainer: {
     flexDirection: 'column',
-    paddingTop:'4%'
+    paddingTop: '4%',
   },
   textinputicon: {
-    paddingHorizontal:'15%',
+    paddingHorizontal: '15%',
   },
-  searchicon:{
-    position:'absolute',
-    paddingHorizontal:'30%',
-    marginVertical:'4%',
-
+  searchicon: {
+    position: 'absolute',
+    paddingHorizontal: '30%',
+    marginVertical: '4%',
   },
   textinput: {
-    paddingHorizontal:'16%',
+    paddingHorizontal: '16%',
     backgroundColor: '#414141',
-    opacity:0.5,
-    marginHorizontal:'6%',
-    borderRadius:5
+    opacity: 0.5,
+    marginHorizontal: '6%',
+    borderRadius: 10,
   },
-  text:{
-    color:'#EFE3C8'
+  text: {
+    color: '#EFE3C8',
   },
-  Optioncontainer: {},
-  sideOptionsBar: {},
+  Optioncontainer: {
+    position: 'absolute',
+    marginTop: '35%',
+    backgroundColor: '#784A48',
+    alignItems: 'flex-start',
+    height: '100%',
+    borderTopEndRadius: 50,
+    width: '11%',
+  },
+  sideOptionsBar: {
+    padding: '50%',
+    alignItems: 'center',
+  },
+  optionText: {
+    color: '#fff',
+    marginVertical: '30%',
+    marginHorizontal: '-22%',
+    textAlign: 'center',
+    width: '150%',
+    fontSize: 14,
+    marginBottom: '180%',
+    marginTop: '50%',
+    transform: [{rotateZ: '-90deg'}],
+  },
+  viewCardContainer: {
+    // position:'absolute',
+    borderWidth: 2,
+    borderColor: '#fff',
+    // marginTop:'10%',
+    marginLeft:'12%',
+  },
+  mainviewCard: {
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#fff',
+    margin:'3%',
+    width:'45%'
+  },
+  imageviewCard: {
+    marginTop:'10%'
+  },
+  imageview: {
+  },
+  rateviewCard: {},
+  rateview: {fontSize: 20,
+    color: '#fff',},
+  nameviewCard: {},
+  nameview: {
+    fontSize: 20,
+    color: '#fff',
+  },
+  priceviewCard: {},
+  priceview: {
+    fontSize: 20, 
+    color: '#fff'
+  },
+  iconviewCard: {},
   sideOptions: {},
   option: {},
   buttombar: {},
 });
-
-// const Styles = StyleSheet.create({
-//   contrainer: {
-//     backgroundColor: '#201520',
-//     opacity: 0.9,
-//     height: hp('100%'),
-//   },
-
-//   titlecontrainer: {
-//     // position:'absolute',
-//     flexDirection: 'column',
-//     paddingTop: '8%',
-//     paddingLeft: '5%',
-//   },
-
-//   title1: {color: '#fff', opacity: 0.9, fontSize: 24},
-
-//   title2: {color: '#EFE3C8', fontSize: 50},
-
-//   mainprofilecontrainer: {
-//     padding: '7%',
-//     position: 'absolute',
-//   },
-
-//   profilecontrainer: {
-//     alignItems: 'flex-end',
-//     borderWidth: 2,
-//     borderRadius: 100,
-//     borderColor: '#DCAA70',
-//     marginStart: '86%',
-//   },
-
-//   profile: {
-//     alignItems: 'center',
-//     margin: '5%',
-//     width: wp('10%'),
-//     height: hp('5%'),
-//   },
-
-//   searchcontrainer: {
-//     backgroundColor: '#171017',
-//     margin: '5%',
-//   },
-
-//   search: {
-//     color: '#EFE3C8',
-//     opacity: 0.7,
-//   },
-
-//   sidemeancontrainer: {
-//     // flexDirection:'column',
-//     // alignItems: 'flex-start',
-//   },
-
-//   sidemean: {
-//     position: 'absolute',
-//     backgroundColor: '#784A48',
-//     opacity: 0.4,
-//     borderTopRightRadius: 90,
-//     paddingTop: '39%',
-//     justifyContent: 'space-evenly',
-//     // paddingEnd:'1%',
-//   },
-
-//   mean: {
-//     color: '#EFE3C8',
-//     marginVertical: '8%',
-//     textAlign: 'center',
-//     fontSize: 20,
-//     transform: [{rotateZ: '-90deg'}],
-//   },
-
-//   itemcontrainer: {
-//     alignItems: 'center',
-//     paddingLeft: '25%',
-//   },
-
-//   item: {
-//     justifyContent: 'space-evenly',
-//     margin: '5%',
-//     borderWidth: 2,
-//     borderColor: '#FFF',
-//     // padding:'8%',
-//     // margin:'5%',
-//     // marginLeft:'5%'
-//   },
-// });
