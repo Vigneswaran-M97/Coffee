@@ -14,6 +14,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Back_Button from './Components/Details_Page/back-button';
 
 function Details_Page(): JSX.Element {
   var [id1, setid1] = useState(false);
@@ -26,12 +27,7 @@ function Details_Page(): JSX.Element {
 
     <SafeAreaView style={styles.container}>
       <StatusBar hidden={false} backgroundColor={'#201520'} />
-      <View style={styles.imagecontainer}>
-        <Image style={styles.image} source={require('./assets/image.png')} />
-        <TouchableOpacity>
-          <Icon style={styles.back} name="arrow-left" color="#fff" size={15} />
-        </TouchableOpacity>
-      </View>
+      <Back_Button/>
 
       <View style={styles.content}>
         <View style={styles.titlecontent}>

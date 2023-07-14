@@ -9,7 +9,7 @@ import React from 'react';
 import { SafeAreaView} from 'react-native';
 import Details_Page from './detail_Page';
 import Item_page from './Item_Page';
-import OneItem from './oneItem';
+// import Details_Page from './oneItem';
 
 
 
@@ -17,7 +17,7 @@ function App(): JSX.Element {
 
   return (   
     <SafeAreaView>
-      <OneItem/>      
+      <Details_Page/>      
     </SafeAreaView>
   );
 }
